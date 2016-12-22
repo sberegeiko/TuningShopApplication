@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <!--CONTROLLERS-->
+    <!--products by car and/or by catalog-->
+    <servlet>
+        <servlet-name>productSelectedByCarAndCatalogController</servlet-name>
+        <servlet-class>by.beregeiko.tuningshop.controller.ProductSelectedByCarAndCatalogController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>productSelectedByCarAndCatalogController</servlet-name>
+        <url-pattern>/selectedByCatalogAndCar.do</url-pattern>
+    </servlet-mapping>
+
+    <!--product-->
+    <servlet>
+        <servlet-name>productController</servlet-name>
+        <servlet-class>by.beregeiko.tuningshop.controller.ProductController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>productController</servlet-name>
+        <url-pattern>/product.do</url-pattern>
+    </servlet-mapping>
+
+    <!--Add to basket-->
+    <servlet>
+        <servlet-name>productAddToBasketController</servlet-name>
+        <servlet-class>by.beregeiko.tuningshop.controller.ProductAddToBasketController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>productAddToBasketController</servlet-name>
+        <url-pattern>/productAddToBasket.do</url-pattern>
+    </servlet-mapping>
+
+    <!--Remove from basket-->
+    <servlet>
+        <servlet-name>productRemoveFromBasketController</servlet-name>
+        <servlet-class>by.beregeiko.tuningshop.controller.ProductRemoveFromBasketController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>productRemoveFromBasketController</servlet-name>
+        <url-pattern>/productRemoveFromBasket.do</url-pattern>
+    </servlet-mapping>
+
+    <!--FILTERS-->
+    <!--Add attributes to context-->
+    <filter>
+        <filter-name>addAttributesToContextFilter</filter-name>
+        <filter-class>by.beregeiko.tuningshop.filter.AddAttributesToContextFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>addAttributesToContextFilter</filter-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </filter-mapping>
+
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
