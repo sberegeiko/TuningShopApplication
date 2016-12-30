@@ -6,6 +6,8 @@ import by.beregeiko.tuningshop.dao.exception.DaoSystemException;
 import by.beregeiko.tuningshop.dao.exception.NoSuchEntityException;
 import by.beregeiko.tuningshop.dao.impl.CarDaoMock;
 import by.beregeiko.tuningshop.dao.impl.ProductDaoMock;
+import by.beregeiko.tuningshop.dao.impl.jdbc.CarDaoJbdcImpl;
+import by.beregeiko.tuningshop.dao.impl.jdbc.ProductDaoJdbcImpl;
 import by.beregeiko.tuningshop.entity.Car;
 import by.beregeiko.tuningshop.entity.Product;
 
@@ -30,9 +32,9 @@ public class ProductSelectedByCarAndCatalogController extends HttpServlet {
     private static final String PAGE_OK = "productsforselectedcar.jsp";
     private static final String PAGE_ERROR = "error.jsp";
 
-    private CarDao carDao = new CarDaoMock();
+    private CarDao carDao = new CarDaoJbdcImpl();
 
-    private ProductDao productDao = new ProductDaoMock();
+    private ProductDao productDao = new ProductDaoJdbcImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

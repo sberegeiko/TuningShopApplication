@@ -4,6 +4,7 @@ import by.beregeiko.tuningshop.dao.ProductDao;
 import by.beregeiko.tuningshop.dao.exception.DaoSystemException;
 import by.beregeiko.tuningshop.dao.exception.NoSuchEntityException;
 import by.beregeiko.tuningshop.dao.impl.ProductDaoMock;
+import by.beregeiko.tuningshop.dao.impl.jdbc.ProductDaoJdbcImpl;
 import by.beregeiko.tuningshop.entity.Product;
 
 import javax.servlet.ServletException;
@@ -25,7 +26,7 @@ public class ProductAddToBasketController extends HttpServlet {
     private static final String PRODUCTS_IN_BASKET = "productsInBasket";
     private static final String PAGE_ERROR = "error.jsp";
 
-    private ProductDao productDao = new ProductDaoMock();
+    private ProductDao productDao = new ProductDaoJdbcImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

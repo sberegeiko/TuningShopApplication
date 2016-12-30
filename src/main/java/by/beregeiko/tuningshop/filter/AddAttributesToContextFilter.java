@@ -5,6 +5,8 @@ import by.beregeiko.tuningshop.dao.CatalogDao;
 import by.beregeiko.tuningshop.dao.exception.DaoSystemException;
 import by.beregeiko.tuningshop.dao.impl.CarDaoMock;
 import by.beregeiko.tuningshop.dao.impl.CatalogDaoMock;
+import by.beregeiko.tuningshop.dao.impl.jdbc.CarDaoJbdcImpl;
+import by.beregeiko.tuningshop.dao.impl.jdbc.CatalogDaoJdbcImpl;
 import by.beregeiko.tuningshop.entity.Car;
 import by.beregeiko.tuningshop.entity.Catalog;
 
@@ -25,8 +27,8 @@ public class AddAttributesToContextFilter extends BaseFilter {
     private static final String ATTRIBUTE_CAR_LIST_TO_VIEW = "carList";
     private static final String ATTRIBUTE_CATALOG_LIST_TO_VIEW = "catalogList";
 
-    private CatalogDao catalogDao = new CatalogDaoMock();
-    private CarDao carDao = new CarDaoMock();
+    private CatalogDao catalogDao = new CatalogDaoJdbcImpl();
+    private CarDao carDao = new CarDaoJbdcImpl();
 
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
