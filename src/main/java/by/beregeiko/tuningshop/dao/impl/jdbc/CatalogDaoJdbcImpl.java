@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class CatalogDaoJdbcImpl implements CatalogDao {
     private static final String JDBC_URL =
-            "jdbc:postgresql://127.0.0.1:5432/tuningshop?user=postgres&password=postgres";
+            "jdbc:postgresql://127.0.0.1:5432/tuningshop?user=postgres&password=";
     private static final String SELECT_CATALOG_BY_ID_SQL = "SELECT * FROM catalogs WHERE id = ?";
     private static final String SELECT_ALL_SQL = "SELECT * FROM catalogs";
 

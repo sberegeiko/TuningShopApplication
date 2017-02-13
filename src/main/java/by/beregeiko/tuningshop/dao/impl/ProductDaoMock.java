@@ -21,32 +21,32 @@ public class ProductDaoMock implements ProductDao {
     public ProductDaoMock() {
         this.memory.put(1, new Product(
                         1, "Bamper", "DEPO", "000001", "DEPO000001",
-                        asList(new Catalog(1, "Bamper"), new Catalog(2, "Tuning Bamper")),
-                        asList(new Car(1, "Audi", "A6", "2005-2009")),
+                        new HashSet<Catalog>(asList(new Catalog(1, "Bamper"), new Catalog(2, "Tuning Bamper"))),
+                        new HashSet<Car>(asList(new Car(1, "Audi", "A6", "2005-2009"))),
                         asList("1", "2")
                 )
         );
 
         this.memory.put(2, new Product(
                         2, "Bamper", "DEPO", "000002", "DEPO000002",
-                        asList(new Catalog(1, "Bamper"), new Catalog(3, "Standart Bamper")),
-                        asList(new Car(1, "Audi", "A6", "2005-2009"), new Car(2, "Audi", "A7", "2005-2009")),
+                        new HashSet<Catalog>(asList(new Catalog(1, "Bamper"), new Catalog(3, "Standart Bamper"))),
+                        new HashSet<Car>(asList(new Car(1, "Audi", "A6", "2005-2009"), new Car(2, "Audi", "A7", "2005-2009"))),
                         asList("3", "4")
                 )
         );
 
         this.memory.put(3, new Product(
                         3, "Bamper", "DEPO", "000003", "DEPO000003",
-                        asList(new Catalog(1, "Bamper"), new Catalog(2, "Tuning Bamper")),
-                        asList(new Car(3, "BMW", "3", "2007-2010")),
+                        new HashSet<Catalog>(asList(new Catalog(1, "Bamper"), new Catalog(2, "Tuning Bamper"))),
+                        new HashSet<Car>(asList(new Car(3, "BMW", "3", "2007-2010"))),
                         asList("5", "6")
                 )
         );
 
         this.memory.put(4, new Product(
                         4, "Spoiler", "DEPO", "000004", "DEPO000005",
-                        asList(new Catalog(4, "Spoiler"), new Catalog(5, "Tuning Spoiler")),
-                        asList(new Car(3, "BMW", "3", "2007-2010")),
+                        new HashSet<Catalog>(asList(new Catalog(4, "Spoiler"), new Catalog(5, "Tuning Spoiler"))),
+                        new HashSet<Car>(asList(new Car(3, "BMW", "3", "2007-2010"))),
                         asList("1", "2")
                 )
         );
@@ -86,7 +86,7 @@ public class ProductDaoMock implements ProductDao {
     }
 
     @Override
-    public Set<Product> selectByCarAndCatalogId(int carId, int catalogId) throws DaoSystemException, NoSuchEntityException {
+    public List<Product> selectByCarAndCatalogId(int carId, int catalogId) throws DaoSystemException, NoSuchEntityException {
         Set<Product> productSet = new HashSet<>();
         Set<Product> productSetByCatalog = new HashSet<>();
 
@@ -96,14 +96,14 @@ public class ProductDaoMock implements ProductDao {
                     productSet.add(product);
                 }
             }
-            for (Catalog catalog: product.getCatalogs()) {
-                if(catalog.getId() == catalogId) {
+            for (Catalog catalog : product.getCatalogs()) {
+                if (catalog.getId() == catalogId) {
                     productSetByCatalog.add(product);
                 }
             }
         }
         productSet.retainAll(productSetByCatalog);
-        return productSet;
+        return new ArrayList<>(productSet);
     }
 
     public List<Product> selectAll() throws DaoSystemException {

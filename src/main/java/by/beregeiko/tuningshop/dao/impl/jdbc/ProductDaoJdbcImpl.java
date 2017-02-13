@@ -18,7 +18,7 @@ import java.util.Set;
  */
 public class ProductDaoJdbcImpl implements ProductDao {
     private static final String JDBC_URL =
-            "jdbc:postgresql://127.0.0.1:5432/tuningshop?user=postgres&password=postgres";
+            "jdbc:postgresql://127.0.0.1:5432/tuningshop?user=postgres&password=";
     private static final String SELECT_PRODUCT_BY_ID_SQL = "SELECT * FROM products WHERE id = ?";
     private static final String SELECT_CARS_BY_PRODUCT_ID_SQL = "SELECT cars.id, cars.name, cars.model, cars.yearfromto FROM product_cars INNER JOIN cars ON (car_id = cars.id) WHERE product_cars.product_id = ?";
     private static final String SELECT_CATALOGS_BY_PRODUCT_ID_SQL = "SELECT catalogs.id, catalogs.name FROM product_catalogs INNER JOIN catalogs ON (catalog_id = catalogs.id) WHERE product_catalogs.product_id = ?";
@@ -134,7 +134,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
     }
 
     @Override
-    public Set<Product> selectByCarAndCatalogId(int carId, int catalogId) throws DaoSystemException, NoSuchEntityException {
+    public List<Product> selectByCarAndCatalogId(int carId, int catalogId) throws DaoSystemException, NoSuchEntityException {
         Set<Product> productList = new HashSet<>();
         Connection connection = null;
         PreparedStatement statement = null;
@@ -161,7 +161,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             }
 
             connection.commit();
-            return productList;
+            return new ArrayList<>(productList);
         } catch (SQLException | ClassNotFoundException e) {
             JdbcUtils.rollbackQuietly(connection);
             throw new DaoSystemException("Some exception", e);
@@ -204,11 +204,11 @@ public class ProductDaoJdbcImpl implements ProductDao {
         }
     }
 
-    private List<Car> selectCarsByProduct(Connection connection, Product product) throws SQLException {
+    private Set<Car> selectCarsByProduct(Connection connection, Product product) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(SELECT_CARS_BY_PRODUCT_ID_SQL)){
             statement.setInt(1, product.getId());
             ResultSet resultSet = statement.executeQuery();
-            ArrayList<Car> cars = new ArrayList<>();
+            Set<Car> cars = new HashSet<>();
             while (resultSet.next()) {
                 cars.add(new Car(resultSet.getInt("id"), resultSet.getString("name"),
                         resultSet.getString("model"), resultSet.getString("yearfromto")));
@@ -217,13 +217,13 @@ public class ProductDaoJdbcImpl implements ProductDao {
         }
     }
 
-    private List<Catalog> selectCatalogsByProduct (Connection connection, Product product) throws SQLException {
+    private Set<Catalog> selectCatalogsByProduct (Connection connection, Product product) throws SQLException {
 
         try (PreparedStatement statement = connection.prepareStatement(SELECT_CATALOGS_BY_PRODUCT_ID_SQL)) {
 
             statement.setInt(1, product.getId());
             ResultSet resultSet = statement.executeQuery();
-            ArrayList<Catalog> catalogs = new ArrayList<>();
+            Set<Catalog> catalogs = new HashSet<>();
             while (resultSet.next()) {
                 catalogs.add(new Catalog(resultSet.getInt("id"), resultSet.getString("name")));
             }

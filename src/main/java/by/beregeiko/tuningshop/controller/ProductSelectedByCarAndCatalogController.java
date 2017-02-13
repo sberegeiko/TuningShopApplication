@@ -4,26 +4,20 @@ import by.beregeiko.tuningshop.dao.CarDao;
 import by.beregeiko.tuningshop.dao.ProductDao;
 import by.beregeiko.tuningshop.dao.exception.DaoSystemException;
 import by.beregeiko.tuningshop.dao.exception.NoSuchEntityException;
-import by.beregeiko.tuningshop.dao.impl.CarDaoMock;
-import by.beregeiko.tuningshop.dao.impl.ProductDaoMock;
-import by.beregeiko.tuningshop.dao.impl.jdbc.CarDaoJbdcImpl;
-import by.beregeiko.tuningshop.dao.impl.jdbc.ProductDaoJdbcImpl;
 import by.beregeiko.tuningshop.entity.Car;
 import by.beregeiko.tuningshop.entity.Product;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Think on 16.12.2016.
  */
-public class ProductSelectedByCarAndCatalogController extends HttpServlet {
+public class ProductSelectedByCarAndCatalogController extends ApplicationContextServlet {
     private static final String PARAM_CAR_ID = "carId";
     private static final String PARAM_CATALOG_ID = "catalogId";
 
@@ -32,15 +26,19 @@ public class ProductSelectedByCarAndCatalogController extends HttpServlet {
     private static final String PAGE_OK = "productsforselectedcar.jsp";
     private static final String PAGE_ERROR = "error.jsp";
 
-    private CarDao carDao = new CarDaoJbdcImpl();
+    private CarDao carDao;
 
-    private ProductDao productDao = new ProductDaoJdbcImpl();
+    private ProductDao productDao;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String carIdStr = req.getParameter(PARAM_CAR_ID);
         String catalogIdStr = req.getParameter(PARAM_CATALOG_ID);
         HttpSession session = req.getSession(true);
+
+        productDao = ctx.getBean("productDao", ProductDao.class);
+        carDao = ctx.getBean("carDao", CarDao.class);
+
         try {
             if (!carIdStr.equals("")) {
                 Integer carId = Integer.valueOf(carIdStr);
@@ -49,7 +47,7 @@ public class ProductSelectedByCarAndCatalogController extends HttpServlet {
 
                 if (!catalogIdStr.equals("")) {
                     Integer catalogId = Integer.valueOf(catalogIdStr);
-                    Set<Product> productList = productDao.selectByCarAndCatalogId(carId, catalogId);
+                    List<Product> productList = productDao.selectByCarAndCatalogId(carId, catalogId);
                     req.setAttribute(ATTRIBUTE_PRODUCT_LIST_TO_VIEW, productList);
                     req.getRequestDispatcher(PAGE_OK).forward(req, resp);
                     return;

@@ -1,6 +1,7 @@
 package by.beregeiko.tuningshop.entity;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Simple JavaBean domain object that represents a Product.
@@ -12,14 +13,14 @@ public class Product {
     private String producer;
     private String productCode;
     private String producerProductCode;
-    private List<Catalog> catalogs;
-    private List<Car> cars;
+    private Set<Catalog> catalogs;
+    private Set<Car> cars;
     private List<String> images;
 
     public Product() {
     }
 
-    public Product(int id, String name, String producer, String productCode, String producerProductCode, List<Catalog> catalogs, List<Car> cars, List<String> images) {
+    public Product(int id, String name, String producer, String productCode, String producerProductCode, Set<Catalog> catalogs, Set<Car> cars, List<String> images) {
         this.id = id;
         this.name = name;
         this.producer = producer;
@@ -70,19 +71,19 @@ public class Product {
         this.producerProductCode = producerProductCode;
     }
 
-    public List<Catalog> getCatalogs() {
+    public Set<Catalog> getCatalogs() {
         return catalogs;
     }
 
-    public void setCatalogs(List<Catalog> catalogs) {
+    public void setCatalogs(Set<Catalog> catalogs) {
         this.catalogs = catalogs;
     }
 
-    public List<Car> getCars() {
+    public Set<Car> getCars() {
         return cars;
     }
 
-    public void setCars(List<Car> cars) {
+    public void setCars(Set<Car> cars) {
         this.cars = cars;
     }
 
