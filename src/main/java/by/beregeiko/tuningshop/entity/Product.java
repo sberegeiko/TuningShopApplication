@@ -1,13 +1,29 @@
 package by.beregeiko.tuningshop.entity;
 
-import java.util.List;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
  * Simple JavaBean domain object that represents a Product.
  * Created by Think on 09.12.2016.
  */
-public class Product {
+@Entity
+@Table(name = "products")
+@NamedQueries({
+        @NamedQuery(name = "Product.selectById",
+                query = "SELECT DISTINCT products " +
+                        "FROM Product products " +
+                        "LEFT JOIN FETCH products.cars cars " +
+                        "LEFT JOIN FETCH products.catalogs catalogs " +
+                        "WHERE products.id = :id"),
+        @NamedQuery(name = "Product.selectAll",
+                query = "SELECT DISTINCT products " +
+                        "FROM Product products " +
+                        "LEFT JOIN FETCH products.cars cars " +
+                        "LEFT JOIN FETCH products.catalogs catalogs")
+})
+public class Product implements Serializable {
     private int id;
     private String name;
     private String producer;
@@ -15,12 +31,11 @@ public class Product {
     private String producerProductCode;
     private Set<Catalog> catalogs;
     private Set<Car> cars;
-    private List<String> images;
 
     public Product() {
     }
 
-    public Product(int id, String name, String producer, String productCode, String producerProductCode, Set<Catalog> catalogs, Set<Car> cars, List<String> images) {
+    public Product(int id, String name, String producer, String productCode, String producerProductCode, Set<Catalog> catalogs, Set<Car> cars) {
         this.id = id;
         this.name = name;
         this.producer = producer;
@@ -28,9 +43,11 @@ public class Product {
         this.producerProductCode = producerProductCode;
         this.catalogs = catalogs;
         this.cars = cars;
-        this.images = images;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -39,6 +56,7 @@ public class Product {
         this.id = id;
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -47,6 +65,7 @@ public class Product {
         this.name = name;
     }
 
+    @Column(name = "producer")
     public String getProducer() {
         return producer;
     }
@@ -55,6 +74,7 @@ public class Product {
         this.producer = producer;
     }
 
+    @Column(name = "productcode")
     public String getProductCode() {
         return productCode;
     }
@@ -63,6 +83,7 @@ public class Product {
         this.productCode = productCode;
     }
 
+    @Column(name = "producerproductcode")
     public String getProducerProductCode() {
         return producerProductCode;
     }
@@ -71,6 +92,10 @@ public class Product {
         this.producerProductCode = producerProductCode;
     }
 
+    @ManyToMany
+    @JoinTable(name = "product_catalogs",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "catalog_id"))
     public Set<Catalog> getCatalogs() {
         return catalogs;
     }
@@ -79,20 +104,16 @@ public class Product {
         this.catalogs = catalogs;
     }
 
+    @ManyToMany
+    @JoinTable(name = "product_cars",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "car_id"))
     public Set<Car> getCars() {
         return cars;
     }
 
     public void setCars(Set<Car> cars) {
         this.cars = cars;
-    }
-
-    public List<String> getImages() {
-        return images;
-    }
-
-    public void setImages(List<String> images) {
-        this.images = images;
     }
 
     @Override
@@ -109,8 +130,7 @@ public class Product {
         if (producerProductCode != null ? !producerProductCode.equals(product.producerProductCode) : product.producerProductCode != null)
             return false;
         if (catalogs != null ? !catalogs.equals(product.catalogs) : product.catalogs != null) return false;
-        if (cars != null ? !cars.equals(product.cars) : product.cars != null) return false;
-        return images != null ? images.equals(product.images) : product.images == null;
+        return cars != null ? cars.equals(product.cars) : product.cars == null;
 
     }
 
@@ -123,7 +143,6 @@ public class Product {
         result = 31 * result + (producerProductCode != null ? producerProductCode.hashCode() : 0);
         result = 31 * result + (catalogs != null ? catalogs.hashCode() : 0);
         result = 31 * result + (cars != null ? cars.hashCode() : 0);
-        result = 31 * result + (images != null ? images.hashCode() : 0);
         return result;
     }
 

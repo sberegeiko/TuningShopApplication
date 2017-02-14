@@ -20,11 +20,12 @@
         <commons-dbcp.version>1.4</commons-dbcp.version>
 
         <postgresql.version>9.4.1208</postgresql.version>
-
+        <h2.version>1.4.193</h2.version>
+        <hibernate.version>4.3.11.Final</hibernate.version>
 
         <!--<spring-security.version>4.0.2.RELEASE</spring-security.version>-->
 
-        <!--<hibernate.version>4.3.11.Final</hibernate.version>-->
+
         <!--<hibernate-validator.version>5.2.1.Final</hibernate-validator.version>-->
         <!--<mysql-connector.version>5.1.36</mysql-connector.version>-->
 
@@ -97,6 +98,24 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
         </dependency>
 
         <dependency>

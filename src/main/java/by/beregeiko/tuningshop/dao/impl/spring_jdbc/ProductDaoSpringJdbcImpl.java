@@ -22,7 +22,7 @@ import java.util.*;
 /**
  * Created by Think on 09.02.2017.
  */
-@Repository("productDao")
+//@Repository("productDao")
 public class ProductDaoSpringJdbcImpl implements ProductDao,InitializingBean {
     private static final String SELECT_ALL_SQL = "SELECT DISTINCT " +
             "products.id, products.name, products.producer, " +
@@ -43,7 +43,7 @@ public class ProductDaoSpringJdbcImpl implements ProductDao,InitializingBean {
     private DataSource dataSource;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Resource(name = "dataSource")
+//    @Resource(name = "dataSource")
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);

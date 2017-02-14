@@ -1,14 +1,21 @@
 package by.beregeiko.tuningshop.entity;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Set;
+
 /**
  * Simple JavaBean object that represents a Car of {@link Product}.
  * Created by Think on 09.12.2016.
  */
-public class Car {
+@Entity
+@Table(name = "cars")
+public class Car implements Serializable {
     private int id;
     private String brand;
     private String model;
     private String yearFromTo;
+    private Set<Product> products;
 
     public Car() {
     }
@@ -20,6 +27,9 @@ public class Car {
         this.yearFromTo = yearFromTo;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -28,6 +38,7 @@ public class Car {
         this.id = id;
     }
 
+    @Column(name = "name")
     public String getBrand() {
         return brand;
     }
@@ -36,6 +47,7 @@ public class Car {
         this.brand = brand;
     }
 
+    @Column(name = "model")
     public String getModel() {
         return model;
     }
@@ -44,12 +56,25 @@ public class Car {
         this.model = model;
     }
 
+    @Column(name = "yearfromto")
     public String getYearFromTo() {
         return yearFromTo;
     }
 
     public void setYearFromTo(String yearFromTo) {
         this.yearFromTo = yearFromTo;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "product_cars",
+            joinColumns = @JoinColumn(name = "car_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
     @Override

@@ -21,14 +21,14 @@ import java.util.Map;
 /**
  * Created by Think on 13.02.2017.
  */
-@Repository("catalogDao")
+//@Repository("catalogDao")
 public class CatalogDaoSpringJdbcImpl implements CatalogDao, InitializingBean {
     private static final String SELECT_ALL_SQL = "SELECT * FROM catalogs";
 
     private DataSource dataSource;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Resource(name = "dataSource")
+//    @Resource(name = "dataSource")
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);

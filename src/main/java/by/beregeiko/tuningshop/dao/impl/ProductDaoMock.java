@@ -22,32 +22,28 @@ public class ProductDaoMock implements ProductDao {
         this.memory.put(1, new Product(
                         1, "Bamper", "DEPO", "000001", "DEPO000001",
                         new HashSet<Catalog>(asList(new Catalog(1, "Bamper"), new Catalog(2, "Tuning Bamper"))),
-                        new HashSet<Car>(asList(new Car(1, "Audi", "A6", "2005-2009"))),
-                        asList("1", "2")
+                        new HashSet<Car>(asList(new Car(1, "Audi", "A6", "2005-2009")))
                 )
         );
 
         this.memory.put(2, new Product(
                         2, "Bamper", "DEPO", "000002", "DEPO000002",
                         new HashSet<Catalog>(asList(new Catalog(1, "Bamper"), new Catalog(3, "Standart Bamper"))),
-                        new HashSet<Car>(asList(new Car(1, "Audi", "A6", "2005-2009"), new Car(2, "Audi", "A7", "2005-2009"))),
-                        asList("3", "4")
+                        new HashSet<Car>(asList(new Car(1, "Audi", "A6", "2005-2009"), new Car(2, "Audi", "A7", "2005-2009")))
                 )
         );
 
         this.memory.put(3, new Product(
                         3, "Bamper", "DEPO", "000003", "DEPO000003",
                         new HashSet<Catalog>(asList(new Catalog(1, "Bamper"), new Catalog(2, "Tuning Bamper"))),
-                        new HashSet<Car>(asList(new Car(3, "BMW", "3", "2007-2010"))),
-                        asList("5", "6")
+                        new HashSet<Car>(asList(new Car(3, "BMW", "3", "2007-2010")))
                 )
         );
 
         this.memory.put(4, new Product(
                         4, "Spoiler", "DEPO", "000004", "DEPO000005",
                         new HashSet<Catalog>(asList(new Catalog(4, "Spoiler"), new Catalog(5, "Tuning Spoiler"))),
-                        new HashSet<Car>(asList(new Car(3, "BMW", "3", "2007-2010"))),
-                        asList("1", "2")
+                        new HashSet<Car>(asList(new Car(3, "BMW", "3", "2007-2010")))
                 )
         );
     }
