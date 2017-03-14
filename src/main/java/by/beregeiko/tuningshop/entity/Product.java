@@ -10,19 +10,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "products")
-@NamedQueries({
-        @NamedQuery(name = "Product.selectById",
-                query = "SELECT DISTINCT products " +
-                        "FROM Product products " +
-                        "LEFT JOIN FETCH products.cars cars " +
-                        "LEFT JOIN FETCH products.catalogs catalogs " +
-                        "WHERE products.id = :id"),
-        @NamedQuery(name = "Product.selectAll",
-                query = "SELECT DISTINCT products " +
-                        "FROM Product products " +
-                        "LEFT JOIN FETCH products.cars cars " +
-                        "LEFT JOIN FETCH products.catalogs catalogs")
-})
 public class Product implements Serializable {
     private int id;
     private String name;
