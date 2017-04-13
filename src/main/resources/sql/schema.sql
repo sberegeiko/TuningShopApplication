@@ -1,3 +1,5 @@
+DROP ALL OBJECTS;
+
 CREATE TABLE IF NOT EXISTS products (
     id INT NOT NULL AUTO_INCREMENT
   , name VARCHAR(255) NOT NULL
@@ -21,6 +23,19 @@ CREATE TABLE IF NOT EXISTS catalogs (
   , PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS users (
+    id INT NOT NULL AUTO_INCREMENT
+  , username VARCHAR(255) NOT NULL
+  , password VARCHAR(255) NOT NULL
+  , PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS roles (
+    id INT NOT NULL AUTO_INCREMENT
+  , name VARCHAR(255) NOT NULL
+  , PRIMARY KEY (id)
+);
+
 CREATE TABLE IF NOT EXISTS product_cars (
     product_id INT NOT NULL,
     car_id     INT NOT NULL,
@@ -35,4 +50,12 @@ CREATE TABLE IF NOT EXISTS product_catalogs (
       FOREIGN KEY (product_id) REFERENCES products (id),
       FOREIGN KEY (catalog_id) REFERENCES catalogs (id),
       UNIQUE (product_id, catalog_id)
+);
+
+CREATE TABLE IF NOT EXISTS user_roles (
+  user_id INT NOT NULL,
+  role_id INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users (id),
+  FOREIGN KEY (role_id) REFERENCES roles (id),
+  UNIQUE (user_id, role_id)
 );

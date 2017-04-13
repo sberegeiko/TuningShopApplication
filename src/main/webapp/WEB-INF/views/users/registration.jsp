@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <spring:url var="loginUrl" value="/j_spring_security_check"/>
@@ -11,10 +12,10 @@
 <head>
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="${contextPath}/resources/css/dashboard.css" rel="stylesheet" type="text/css">
-    <title>Example</title>
+
+    <title>Main page</title>
 </head>
 <body>
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -81,20 +82,36 @@
 </nav>
 
 <div class="container-fluid">
-    <div class="jumbotron">
-        <div class="container">
-            <h2>Выберите модель</h2>
-            <c:if test="${not empty cars}">
-                <c:forEach items="${cars}" var="car">
-                    <a class="btn btn-primary btn-lg" href="/cars/${car.id}/products" role="button">  ${car.model} ${car.yearFromTo}</a>
-                </c:forEach>
-            </c:if>
-            <sec:authorize access="hasRole('ROLE_ADMIN')">
-                <a class="btn btn-primary btn-lg" href="" role="button">Add new model</a>
-            </sec:authorize>
-        </div>
-    </div>
+    <div class="container">
 
+        <form:form method="POST" modelAttribute="userForm" class="form-signin">
+            <h2 class="form-signin-heading">Create your account</h2>
+            <spring:bind path="username">
+                <div class="form-group ${status.error ? 'has-error' : ''}">
+                    <form:input type="text" path="username" class="form-control" placeholder="Username"
+                                autofocus="true"/>
+                    <form:errors path="username"/>
+                </div>
+            </spring:bind>
+
+            <spring:bind path="password">
+                <div class="form-group ${status.error ? 'has-error' : ''}">
+                    <form:input type="password" path="password" class="form-control" placeholder="Password"/>
+                    <form:errors path="password"/>
+                </div>
+            </spring:bind>
+
+            <spring:bind path="confirmPassword">
+                <div class="form-group ${status.error ? 'has-error' : ''}">
+                    <form:input type="password" path="confirmPassword" class="form-control"
+                                placeholder="Confirm your password"/>
+                    <form:errors path="confirmPassword"/>
+                </div>
+            </spring:bind>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+        </form:form>
+    </div>
 </div>
 
 <footer class="footer">

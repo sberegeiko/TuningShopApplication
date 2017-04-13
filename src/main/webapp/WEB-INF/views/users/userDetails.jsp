@@ -6,6 +6,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <spring:url var="loginUrl" value="/j_spring_security_check"/>
 <spring:url var="logoutUrl" value="/j_spring_security_logout"/>
+<spring:url value="/users" var="UserUrl"/>
 
 <html>
 <head>
@@ -81,20 +82,40 @@
 </nav>
 
 <div class="container-fluid">
-    <div class="jumbotron">
-        <div class="container">
-            <h2>Выберите модель</h2>
-            <c:if test="${not empty cars}">
-                <c:forEach items="${cars}" var="car">
-                    <a class="btn btn-primary btn-lg" href="/cars/${car.id}/products" role="button">  ${car.model} ${car.yearFromTo}</a>
-                </c:forEach>
-            </c:if>
-            <sec:authorize access="hasRole('ROLE_ADMIN')">
-                <a class="btn btn-primary btn-lg" href="" role="button">Add new model</a>
-            </sec:authorize>
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="#">Change </a></li>
+                <li><a href="${UserUrl}">Users</a></li>
+                <li><a href="#">Cars</a></li>
+                <li><a href="#">Catalogs</a></li>
+                <li><a href="#">Products</a></li>
+            </ul>
+
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">USER</h1>
+
+            <table class="table table-striped">
+                <tr>
+                    <td>id</td>
+                    <td>${user.id}</td>
+                </tr>
+                <tr>
+                    <td>username</td>
+                    <td>${user.username}</td>
+                </tr>
+                <tr>
+                    <td>Roles</td>
+                    <td><c:forEach var="role" items="${user.roles}">${role.name}</c:forEach></td>
+                </tr>
+            </table>
+
+            <a class="btn btn-primary btn-lg" href="${UserUrl}/${user.id}?form" role="button">Edit</a>
+            <a class="btn btn-primary btn-lg" href="${UserUrl}/${user.id}/delete" role="button">Delete</a>
+
         </div>
     </div>
-
 </div>
 
 <footer class="footer">

@@ -10,6 +10,7 @@
 
     <import resource="appconfig-data.xml"/>
     <import resource="appconfig-mvc.xml"/>
+    <import resource="appconfig-security.xml"/>
 
     <context:component-scan base-package="by.beregeiko.tuningshop.*"/>
     <context:property-placeholder location="classpath*:database.properties"/>

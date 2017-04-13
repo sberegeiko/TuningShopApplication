@@ -61,3 +61,13 @@ insert into product_catalogs (product_id, catalog_id) values (7, 1);
 insert into product_catalogs (product_id, catalog_id) values (7, 2);
 insert into product_catalogs (product_id, catalog_id) values (8, 1);
 insert into product_catalogs (product_id, catalog_id) values (8, 2);
+
+insert into users (username, password)
+values ('admin', '$2a$11$47GlWUL8gt/CR4n.Br59M.vZID7RxezNRIq2MHBwqezS/Oeg0oZiG'); // pass: admin
+insert into users values (2, 'testuser', '$2a$11$Uy6V11vQBWITENl8w4VRWO0tuCv6enFTjdpkDkXCc9E7HtLbcSAXm'); // pass: testuser
+
+insert into roles values (1, 'ROLE_USER');
+insert into roles values (2, 'ROLE_ADMIN');
+
+insert into user_roles values (1, 2);
+insert into user_roles values (2, 1);

@@ -6,6 +6,8 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <spring:url var="loginUrl" value="/j_spring_security_check"/>
 <spring:url var="logoutUrl" value="/j_spring_security_logout"/>
+<spring:url value="/users?form" var="addUserUrl"/>
+<spring:url value="/users" var="UserUrl"/>
 
 <html>
 <head>
@@ -81,21 +83,52 @@
 </nav>
 
 <div class="container-fluid">
-    <div class="jumbotron">
-        <div class="container">
-            <h2>Выберите модель</h2>
-            <c:if test="${not empty cars}">
-                <c:forEach items="${cars}" var="car">
-                    <a class="btn btn-primary btn-lg" href="/cars/${car.id}/products" role="button">  ${car.model} ${car.yearFromTo}</a>
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="#">Change </a></li>
+                <li><a href="${UserUrl}">Users</a></li>
+                <li><a href="#">Cars</a></li>
+                <li><a href="#">Catalogs</a></li>
+                <li><a href="#">Products</a></li>
+            </ul>
+
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">USERS</h1>
+
+
+            <div class="row placeholders">
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <h4>Label</h4>
+                    <span class="text-muted">Something else</span>
+                </div>
+
+            </div>
+
+            <h2 class="sub-header">Section title</h2>
+            <a class="btn btn-primary btn-lg" href="${addUserUrl}" role="button">Add new User</a>
+            <br/>
+            <h2 class="sub-header">All Users</h2>
+            <div class="list-group">
+                <c:forEach var="user" items="${users}">
+                    <a href="/users/${user.id}" class="list-group-item">
+                            ${user.id}
+                            ${user.username}
+                        <small>Roles:</small>
+                        <c:forEach var="role" items="${user.roles}">
+                            <small>${role.name}</small>
+                        </c:forEach>
+
+                    </a>
                 </c:forEach>
-            </c:if>
-            <sec:authorize access="hasRole('ROLE_ADMIN')">
-                <a class="btn btn-primary btn-lg" href="" role="button">Add new model</a>
-            </sec:authorize>
+
+            </div>
+
         </div>
     </div>
-
 </div>
+
 
 <footer class="footer">
     <div class="container-fluid">

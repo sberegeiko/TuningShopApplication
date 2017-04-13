@@ -43,10 +43,7 @@ public class Catalog implements Serializable{
         this.name = name;
     }
 
-    @ManyToMany
-    @JoinTable(name = "product_catalogs",
-            joinColumns = @JoinColumn(name = "catalog_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @ManyToMany(mappedBy = "catalogs")
     public Set<Product> getProducts() {
         return products;
     }

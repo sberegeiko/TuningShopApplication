@@ -32,6 +32,8 @@ public class CatalogController {
         return "catalogs/list";
     }
 
+    // TODO: add methods: createCatalog, updateCatalog
+
     @Autowired
     public void setShopService(ShopService shopService) {
         this.shopService = shopService;

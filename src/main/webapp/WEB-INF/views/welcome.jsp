@@ -11,10 +11,10 @@
 <head>
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="${contextPath}/resources/css/dashboard.css" rel="stylesheet" type="text/css">
-    <title>Example</title>
+
+    <title>Main page</title>
 </head>
 <body>
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -83,18 +83,37 @@
 <div class="container-fluid">
     <div class="jumbotron">
         <div class="container">
-            <h2>Выберите модель</h2>
-            <c:if test="${not empty cars}">
-                <c:forEach items="${cars}" var="car">
-                    <a class="btn btn-primary btn-lg" href="/cars/${car.id}/products" role="button">  ${car.model} ${car.yearFromTo}</a>
-                </c:forEach>
-            </c:if>
-            <sec:authorize access="hasRole('ROLE_ADMIN')">
-                <a class="btn btn-primary btn-lg" href="" role="button">Add new model</a>
-            </sec:authorize>
+            <h1>РАСПРОДАЖА!</h1>
+            <p>Только сегодня!!!!</p>
+            <p><a class="btn btn-primary btn-lg" href="" role="button">Перейти &raquo;</a></p>
         </div>
     </div>
+    <div class="jumbotron">
+        <div class="container">
+            <h2></h2>
+                <a class="btn btn-primary btn-lg" href="cars" role="button">Выбрать авто</a>
+        </div>
+    </div>
+    <div class="row">
 
+        <div class="col-sm-9 col-md-10 main">
+            <div class="col-sm-3 col-md-3">
+                <h2>Лучшие товары только у нас!</h2>
+                <p>Текст.</p>
+                <p><a class="btn btn-primary" href="#" role="button">Смотреть &raquo;</a></p>
+            </div>
+            <div class="col-sm-3 col-md-3">
+                <h2>Наши лучшие проекты</h2>
+                <p>Текстю</p>
+                <p><a class="btn btn-primary" href="#" role="button">Смотреть &raquo;</a></p>
+            </div>
+            <div class="col-sm-3 col-md-3">
+                <h2>Ищите нас на карте</h2>
+                <p>Текст.</p>
+                <p><a class="btn btn-primary" href="#" role="button">Смотреть &raquo;</a></p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <footer class="footer">

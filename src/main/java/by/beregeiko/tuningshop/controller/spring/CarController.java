@@ -22,7 +22,7 @@ public class CarController {
 
     private ShopService shopService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/cars", method = RequestMethod.GET)
     public String listBrands(Model model){
         logger.info("Listing cars");
         List<String> carBrands = shopService.findAllCarBrands();
@@ -38,6 +38,8 @@ public class CarController {
         logger.info("No. of car: " + cars.size());
         return "cars/listByBrand";
     }
+
+    // TODO: add methods: createCar, updateCar
 
     @Autowired
     public void setShopService(ShopService shopService) {

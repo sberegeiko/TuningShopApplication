@@ -65,10 +65,7 @@ public class Car implements Serializable {
         this.yearFromTo = yearFromTo;
     }
 
-    @ManyToMany
-    @JoinTable(name = "product_cars",
-            joinColumns = @JoinColumn(name = "car_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @ManyToMany(mappedBy = "cars")
     public Set<Product> getProducts() {
         return products;
     }

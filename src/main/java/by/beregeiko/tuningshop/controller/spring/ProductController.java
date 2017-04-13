@@ -59,6 +59,8 @@ public class ProductController {
         return mav;
     }
 
+    // TODO: add methods: createProduct, updateProduct
+
     @Autowired
     public void setShopService(ShopService shopService) {
         this.shopService = shopService;
